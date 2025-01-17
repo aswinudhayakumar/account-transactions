@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  account-transactions:
+    image: account-transactions:local
+    env_file:
+      - .env.local
+    depends_on:
+      transactions-db:
+        condition: service_healthy
+    ports:
+      - 8080:8080
