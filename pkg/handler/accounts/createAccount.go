@@ -84,6 +84,7 @@ func (h *accountsHandler) CreateAccount(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
+// validateCreateAccountRequest validates the request object for CreateAccount API handler.
 func validateCreateAccountRequest(req CreateAccountReqParams) *validator.ValidationErrors {
 	errors := validator.NewValidationErrors()
 

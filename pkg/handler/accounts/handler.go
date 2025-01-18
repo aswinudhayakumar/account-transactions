@@ -6,7 +6,7 @@ import (
 	"github.com/aswinudhayakumar/account-transactions/pkg/repository"
 )
 
-// AccountsHandler is an interface for handling accounts-related API requests.
+// AccountsHandler is an interface providing methods for accounts-related API requests.
 type AccountsHandler interface {
 	CreateAccount(w http.ResponseWriter, r *http.Request)
 	GetAccountByAccountID(w http.ResponseWriter, r *http.Request)

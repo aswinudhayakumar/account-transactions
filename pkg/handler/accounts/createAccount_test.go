@@ -47,12 +47,12 @@ func (s *testCreateAccountSuite) SetupTest() {
 	defer logger.SyncLogger()
 }
 
-// TestCreateAccountSuite is the custom test suite for CreateAccount API handler.
+// TestCreateAccountSuite is the custom test suite runner for CreateAccount API handler.
 func TestCreateAccountSuite(t *testing.T) {
 	suite.Run(t, new(testCreateAccountSuite))
 }
 
-// @Success testcase -  statusCode (201)
+// @Success testcase - statusCode (201)
 func (s *testCreateAccountSuite) TestCreateAccountSuccess() {
 	documentNumber := "12345678900"
 	s.dataRepo.Mock.On("CreateAccount", mock.Anything, repository.CreateAccountReqParams{
@@ -68,7 +68,7 @@ func (s *testCreateAccountSuite) TestCreateAccountSuccess() {
 	s.Equal(http.StatusCreated, s.recorder.Code)
 }
 
-// @Failed testcase -  statusCode (400)
+// @Failed testcase - statusCode (400)
 func (s *testCreateAccountSuite) TestCreateAccountInvalidRequest() {
 	documentNumber := "1"
 
@@ -82,7 +82,7 @@ func (s *testCreateAccountSuite) TestCreateAccountInvalidRequest() {
 	s.Equal(http.StatusBadRequest, s.recorder.Code)
 }
 
-// @Failed testcase -  statusCode (400)
+// @Failed testcase - statusCode (400)
 func (s *testCreateAccountSuite) TestCreateAccountInvalidRequestPayload() {
 	documentNumber := "1"
 
@@ -96,7 +96,7 @@ func (s *testCreateAccountSuite) TestCreateAccountInvalidRequestPayload() {
 	s.Equal(http.StatusBadRequest, s.recorder.Code)
 }
 
-// @Failed testcase -  statusCode (500)
+// @Failed testcase - statusCode (500)
 func (s *testCreateAccountSuite) TestCreateAccountInternalServerError() {
 	documentNumber := "12345678900"
 	s.dataRepo.Mock.On("CreateAccount", mock.Anything, repository.CreateAccountReqParams{

@@ -6,7 +6,7 @@ import (
 	"github.com/aswinudhayakumar/account-transactions/pkg/repository"
 )
 
-// TransactionsHandler is an interface for handling transactions-related API requests.
+// TransactionsHandler is an interface providing methods for transactions-related API requests.
 type TransactionsHandler interface {
 	CreateTransaction(w http.ResponseWriter, r *http.Request)
 }
