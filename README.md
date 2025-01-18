@@ -4,12 +4,12 @@ This repository contains a project for managing account-related transaction endp
 
 ## Table of contents
 
-1. [Architecture](#architecture)
-2. [Repository structure](#repository-structure)
-3. [Api-spec](#api-spec)
-4. [Getting started](#getting-started)
-5. [Docker image](#docker-image)
-6. [Links](#links)
+1. [Architecture](#%EF%B8%8F-architecture)
+2. [Repository structure](#-repository-structure)
+3. [Api-spec](#-api-spec)
+4. [Getting started](#%EF%B8%8F%EF%B8%8F-getting-started)
+5. [Docker image](#-docker-image)
+6. [Links](#-links)
 
 ## 🏛️ Architecture
 The **account-transactions** project follows a clean architecture approach, promoting modularity, maintainability, and separation of concerns. The architecture is designed with flexibility and scalability in mind. Key aspects include:
