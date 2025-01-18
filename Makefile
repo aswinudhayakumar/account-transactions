@@ -16,3 +16,9 @@ down:
 
 fmt:
 	go fmt ./...
+
+mock:
+	go generate ./...
+
+unit-test:
+	go test -cover ./... -v
