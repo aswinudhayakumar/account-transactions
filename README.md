@@ -5,10 +5,10 @@ This repository contains a project for managing account-related transaction endp
 ## Table of contents
 
 1. [Architecture](#%EF%B8%8F-architecture)
-2. [Repository structure](#-repository-structure)
+2. [Repository Structure](#-repository-structure)
 3. [Api-spec](#-api-spec)
-4. [Getting started](#%EF%B8%8F%EF%B8%8F-getting-started)
-5. [Docker image](#-docker-image)
+4. [Getting Started](#%EF%B8%8F%EF%B8%8F-getting-started)
+5. [Docker Image](#-docker-image)
 6. [Links](#-links)
 
 ## 🏛️ Architecture
@@ -88,9 +88,30 @@ API-spec will be added.
    make down
    ```
 
-## ⚓ Docker image
+## ⚓ Docker Image
 
-- Can get the docker image of this application here - https://hub.docker.com/repository/docker/aswin8799/account-transactions
+You can pull the Docker image for this application from Docker Hub. Simply use the following command:
+
+```
+docker pull aswin8799/account-transactions
+```
+
+For more details and access to the repository, visit the Docker Hub page [here](https://hub.docker.com/repository/docker/aswin8799/account-transactions).
+
+This image contains the fully packaged application, ready to be deployed and run in any Docker-enabled environment.
+
+### Env Variables
+
+The following environment variables are required for configuring the application:
+
+- **APP_PORT**- The port on which the application will run.
+- **DB_USER**- The username for connecting to the database.
+- **DB_PASSWORD**- The password for the database user.
+- **DB_NAME**- The name of the database to use.
+- **DB_HOST**- The hostname of the database server.
+- **DB_PORT**- The port on which the database is running.
+- **SSL_MODE**- SSL connection mode to the database. This can be set to disable, require, etc., depending on your database configuration.
+These environment variables must be set in a .env file or configured directly in your system to ensure proper connectivity and behavior of the application.
 
 ## 🔗 Links
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/aswin-udhayakumar/)
