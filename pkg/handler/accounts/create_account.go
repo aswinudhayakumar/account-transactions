@@ -6,7 +6,7 @@ import (
 
 	"github.com/aswinudhayakumar/account-transactions/internal/logger"
 	"github.com/aswinudhayakumar/account-transactions/internal/validator"
-	writer "github.com/aswinudhayakumar/account-transactions/internal/writter"
+	"github.com/aswinudhayakumar/account-transactions/internal/writer"
 	"github.com/aswinudhayakumar/account-transactions/pkg/repository"
 	"go.uber.org/zap"
 )
@@ -21,8 +21,8 @@ func (h *accountsHandler) CreateAccount(w http.ResponseWriter, r *http.Request) 
 			w,
 			http.StatusBadRequest,
 			writer.ErrorDescription{
-				Title:  "Invalid Request Payload",
-				Code:   "invalid_request",
+				Title:  writer.ErrTitleInvalidRequestPayload,
+				Code:   writer.ErrCodeInvalidRequest,
 				Detail: "The request payload is malformed or invalid.",
 			},
 		)
@@ -36,8 +36,8 @@ func (h *accountsHandler) CreateAccount(w http.ResponseWriter, r *http.Request) 
 			w,
 			http.StatusBadRequest,
 			writer.ErrorDescription{
-				Title:  "Validation Failed",
-				Code:   "invalid_request",
+				Title:  writer.ErrTilteValidationFailed,
+				Code:   writer.ErrCodeInvalidRequest,
 				Detail: validationErrs.Error(),
 			},
 		)
@@ -57,8 +57,8 @@ func (h *accountsHandler) CreateAccount(w http.ResponseWriter, r *http.Request) 
 			w,
 			http.StatusInternalServerError,
 			writer.ErrorDescription{
-				Title:  "Unexpected Error",
-				Code:   "unexpected_error",
+				Title:  writer.ErrTitleUnexpectedError,
+				Code:   writer.ErrCodeUnexpectedError,
 				Detail: err.Error(),
 			},
 		)
@@ -75,8 +75,8 @@ func (h *accountsHandler) CreateAccount(w http.ResponseWriter, r *http.Request) 
 			w,
 			http.StatusInternalServerError,
 			writer.ErrorDescription{
-				Title:  "Unexpected Error",
-				Code:   "unexpected_error",
+				Title:  writer.ErrTitleUnexpectedError,
+				Code:   writer.ErrCodeUnexpectedError,
 				Detail: err.Error(),
 			},
 		)

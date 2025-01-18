@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/aswinudhayakumar/account-transactions/internal/middleware"
-	writer "github.com/aswinudhayakumar/account-transactions/internal/writter"
+	"github.com/aswinudhayakumar/account-transactions/internal/writer"
 	accHandler "github.com/aswinudhayakumar/account-transactions/pkg/handler/accounts"
 	trxHandler "github.com/aswinudhayakumar/account-transactions/pkg/handler/transactions"
 	"github.com/aswinudhayakumar/account-transactions/pkg/repository"
