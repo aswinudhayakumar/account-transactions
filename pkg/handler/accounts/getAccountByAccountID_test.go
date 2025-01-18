@@ -48,7 +48,7 @@ func (s *testGetAccountByAccountIDSuite) SetupTest() {
 	defer logger.SyncLogger()
 }
 
-// TestGetAccountByAccountIDSuite is the custom test suite for GetAccountByAccountID API handler.
+// TestGetAccountByAccountIDSuite is the custom test suite runner for GetAccountByAccountID API handler.
 func TestGetAccountByAccountIDSuite(t *testing.T) {
 	suite.Run(t, new(testGetAccountByAccountIDSuite))
 }

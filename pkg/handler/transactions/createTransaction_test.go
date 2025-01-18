@@ -47,12 +47,12 @@ func (s *testCreateTransactionSuite) SetupTest() {
 	defer logger.SyncLogger()
 }
 
-// TestCreateTransactionSuite is the custom test suite for CreateTransaction API handler.
+// TestCreateTransactionSuite is the custom test suite runner for CreateTransaction API handler.
 func TestCreateTransactionSuite(t *testing.T) {
 	suite.Run(t, new(testCreateTransactionSuite))
 }
 
-// @Success testcase -  statusCode (201)
+// @Success testcase - statusCode (201)
 func (s *testCreateTransactionSuite) TestCreateTransactionSuccess() {
 	accountID := 1
 	operationTypeID := 1
@@ -75,7 +75,7 @@ func (s *testCreateTransactionSuite) TestCreateTransactionSuccess() {
 	s.Equal(http.StatusCreated, s.recorder.Code)
 }
 
-// @Failed testcase -  statusCode (400)
+// @Failed testcase - statusCode (400)
 func (s *testCreateTransactionSuite) TestCreateTransactionInvalidRequest() {
 	accountID := 1
 	operationTypeID := 1
@@ -92,7 +92,7 @@ func (s *testCreateTransactionSuite) TestCreateTransactionInvalidRequest() {
 	s.Equal(http.StatusBadRequest, s.recorder.Code)
 }
 
-// @Failed testcase -  statusCode (400)
+// @Failed testcase - statusCode (400)
 func (s *testCreateTransactionSuite) TestCreateTransactionInvalidAccountID() {
 	operationTypeID := 1
 	amount := 100.50
@@ -108,7 +108,7 @@ func (s *testCreateTransactionSuite) TestCreateTransactionInvalidAccountID() {
 	s.Equal(http.StatusBadRequest, s.recorder.Code)
 }
 
-// @Failed testcase -  statusCode (400)
+// @Failed testcase - statusCode (400)
 func (s *testCreateTransactionSuite) TestCreateTransactionInvalidOperationTypeID() {
 	accountID := 1
 	amount := 100.50
@@ -124,7 +124,7 @@ func (s *testCreateTransactionSuite) TestCreateTransactionInvalidOperationTypeID
 	s.Equal(http.StatusBadRequest, s.recorder.Code)
 }
 
-// @Failed testcase -  statusCode (400)
+// @Failed testcase - statusCode (400)
 func (s *testCreateTransactionSuite) TestCreateTransactionInvalidAmount() {
 	accountID := 1
 	operationTypeID := 1
@@ -140,7 +140,7 @@ func (s *testCreateTransactionSuite) TestCreateTransactionInvalidAmount() {
 	s.Equal(http.StatusBadRequest, s.recorder.Code)
 }
 
-// @Failed testcase -  statusCode (400)
+// @Failed testcase - statusCode (400)
 func (s *testCreateTransactionSuite) TestCreateTransactionAccountIDNotFound() {
 	accountID := 1
 	operationTypeID := 1
@@ -163,7 +163,7 @@ func (s *testCreateTransactionSuite) TestCreateTransactionAccountIDNotFound() {
 	s.Equal(http.StatusBadRequest, s.recorder.Code)
 }
 
-// @Failed testcase -  statusCode (400)
+// @Failed testcase - statusCode (400)
 func (s *testCreateTransactionSuite) TestCreateTransactionOperationTypeIDNotFound() {
 	accountID := 1
 	operationTypeID := 1
@@ -186,7 +186,7 @@ func (s *testCreateTransactionSuite) TestCreateTransactionOperationTypeIDNotFoun
 	s.Equal(http.StatusBadRequest, s.recorder.Code)
 }
 
-// @Failed testcase -  statusCode (500)
+// @Failed testcase - statusCode (500)
 func (s *testCreateTransactionSuite) TestCreateTransactionInternalServerError() {
 	accountID := 1
 	operationTypeID := 1
