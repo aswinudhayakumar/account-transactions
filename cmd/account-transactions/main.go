@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -51,12 +50,12 @@ func main() {
 	failOnError(err, "🛑 failed to apply db migrations")
 
 	// Initialise the HTTP web server
-	webServerConfig := buildWebServerConfig(conf)
+	webServerConfig := buildWebServerConfig(conf, db)
 	webServer := webServerConfig.InitWebServer()
 
 	// Run the HTTP web server
 	go func() {
-		log.Println(fmt.Sprintf("🟢 HTTP server listening on port: %s 🚀", conf.AppPort))
+		log.Printf("🟢 HTTP server listening on port: %s 🚀", conf.AppPort)
 		if err := webServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			failOnError(err, "🛑 failed to start HTTP server")
 		}
