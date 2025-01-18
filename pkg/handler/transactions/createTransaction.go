@@ -11,6 +11,7 @@ import (
 	"go.uber.org/zap"
 )
 
+// CreateTransaction handles the creation of a new transaction.
 func (h *transactionsHandler) CreateTransaction(w http.ResponseWriter, r *http.Request) {
 	// Decode the request params
 	var req CreateTrxReqParams

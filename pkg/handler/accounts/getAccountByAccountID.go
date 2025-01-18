@@ -13,6 +13,7 @@ import (
 	"go.uber.org/zap"
 )
 
+// GetAccountByAccountID retrieves an account using the Account ID.
 func (h *accountsHandler) GetAccountByAccountID(w http.ResponseWriter, r *http.Request) {
 	// path : "app/v1/accounts/{id}"
 	path := r.URL.Path

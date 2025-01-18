@@ -10,6 +10,7 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+// testTransactionsTableSuite is a test suite object to test database operations from Transactions table.
 type testTransactionsTableSuite struct {
 	suite.Suite
 
@@ -18,6 +19,7 @@ type testTransactionsTableSuite struct {
 	repo DataRepo
 }
 
+// SetupTest setups and initializes the testTransactionsTableSuite.
 func (s *testTransactionsTableSuite) SetupTest() {
 	db, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 	s.Require().NoError(err)
@@ -29,6 +31,7 @@ func (s *testTransactionsTableSuite) SetupTest() {
 	s.repo = NewDataRepo(sqlxDB)
 }
 
+// TearDownTest gracefully closes the test suite, by closing the db connection.
 func (s *testTransactionsTableSuite) TearDownTest() {
 	if s.db != nil {
 		err := s.db.Close()
@@ -38,10 +41,12 @@ func (s *testTransactionsTableSuite) TearDownTest() {
 	}
 }
 
+// TestTransactionsTableSuite is the custom test suite to test database operations from Transactions table.
 func TestTransactionsTableSuite(t *testing.T) {
 	suite.Run(t, new(testTransactionsTableSuite))
 }
 
+// @Success testcase
 func (s *testTransactionsTableSuite) TestCreateTransactionSuccess() {
 	req := CreateTransactionReqParams{
 		AccountID:       1,
@@ -72,6 +77,7 @@ func (s *testTransactionsTableSuite) TestCreateTransactionSuccess() {
 	s.Require().NoError(err)
 }
 
+// @Failed testcase
 func (s *testTransactionsTableSuite) TestCreateTransactionInvalidAccountID() {
 	req := CreateTransactionReqParams{
 		AccountID:       1,
@@ -96,6 +102,7 @@ func (s *testTransactionsTableSuite) TestCreateTransactionInvalidAccountID() {
 	s.Require().ErrorIs(err, ErrAccountIDNotExists)
 }
 
+// @Failed testcase
 func (s *testTransactionsTableSuite) TestCreateTransactionInvalidOperationTypeID() {
 	req := CreateTransactionReqParams{
 		AccountID:       1,
@@ -120,6 +127,7 @@ func (s *testTransactionsTableSuite) TestCreateTransactionInvalidOperationTypeID
 	s.Require().ErrorIs(err, ErrOperationTypeIDNotExists)
 }
 
+// @Failed testcase
 func (s *testTransactionsTableSuite) TestCreateTransactionError() {
 	req := CreateTransactionReqParams{
 		AccountID:       1,

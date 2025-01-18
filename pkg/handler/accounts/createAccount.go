@@ -11,6 +11,7 @@ import (
 	"go.uber.org/zap"
 )
 
+// CreateAccount handles the creation of a new account.
 func (h *accountsHandler) CreateAccount(w http.ResponseWriter, r *http.Request) {
 	// Decode the request params
 	var req CreateAccountReqParams
