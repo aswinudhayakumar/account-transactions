@@ -42,7 +42,7 @@ account-transactions
 │   ├───mocks
 │   ├───signal
 │   ├───validator
-│   └───writter
+│   └───writer
 ├───pkg
 │   ├───handler
 │   │   ├───accounts
