@@ -32,7 +32,7 @@ func buildWebServerConfig(conf env, db *sqlx.DB) WebServerConfig {
 }
 
 // InitWebServer initialises and returns a HTTP web server
-func InitWebServer(config WebServerConfig) *http.Server {
+func (ws *WebServerConfig) InitWebServer() *http.Server {
 	r := chi.NewRouter()
 	r.Use(middleware.RecoverInterceptor)
 
@@ -44,20 +44,17 @@ func InitWebServer(config WebServerConfig) *http.Server {
 
 		// accounts API handlers
 		r.Route("/accounts", func(r chi.Router) {
-			r.Post("/", config.accountsHandler.CreateAccount)
-		})
-		r.Route("/accounts/{id}", func(r chi.Router) {
-			r.Get("/", config.accountsHandler.GetAccountByAccountID)
+			r.Post("/", ws.accountsHandler.CreateAccount)
+			r.Get("/", ws.accountsHandler.GetAccountByAccountID)
 		})
 
 		// transactions API handlers
-		r.Route("/transactions", func(r chi.Router) {
-			r.Post("/", config.trxHandler.CreateTransaction)
-		})
+		r.Post("/", ws.trxHandler.CreateTransaction)
+
 	})
 
 	return &http.Server{
-		Addr:    getServerPort(config.conf.AppPort),
+		Addr:    getServerPort(ws.conf.AppPort),
 		Handler: r,
 	}
 }

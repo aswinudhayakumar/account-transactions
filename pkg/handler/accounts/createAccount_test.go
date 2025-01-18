@@ -21,6 +21,7 @@ const (
 	createAccountEndpoint = "/app/v1/accounts"
 )
 
+// testCreateAccountSuite is a test suite object to test CreateAccount API handler.
 type testCreateAccountSuite struct {
 	suite.Suite
 
@@ -30,6 +31,7 @@ type testCreateAccountSuite struct {
 	recorder        *httptest.ResponseRecorder
 }
 
+// SetupTest setups and initializes the testCreateAccountSuite.
 func (s *testCreateAccountSuite) SetupTest() {
 	s.recorder = httptest.NewRecorder()
 	s.dataRepo = new(mocks.DataRepo)
@@ -45,10 +47,12 @@ func (s *testCreateAccountSuite) SetupTest() {
 	defer logger.SyncLogger()
 }
 
+// TestCreateAccountSuite is the custom test suite for CreateAccount API handler.
 func TestCreateAccountSuite(t *testing.T) {
 	suite.Run(t, new(testCreateAccountSuite))
 }
 
+// @Success testcase -  statusCode (201)
 func (s *testCreateAccountSuite) TestCreateAccountSuccess() {
 	documentNumber := "12345678900"
 	s.dataRepo.Mock.On("CreateAccount", mock.Anything, repository.CreateAccountReqParams{
@@ -64,6 +68,7 @@ func (s *testCreateAccountSuite) TestCreateAccountSuccess() {
 	s.Equal(http.StatusCreated, s.recorder.Code)
 }
 
+// @Failed testcase -  statusCode (400)
 func (s *testCreateAccountSuite) TestCreateAccountInvalidRequest() {
 	documentNumber := "1"
 
@@ -77,6 +82,7 @@ func (s *testCreateAccountSuite) TestCreateAccountInvalidRequest() {
 	s.Equal(http.StatusBadRequest, s.recorder.Code)
 }
 
+// @Failed testcase -  statusCode (400)
 func (s *testCreateAccountSuite) TestCreateAccountInvalidRequestPayload() {
 	documentNumber := "1"
 
@@ -90,6 +96,7 @@ func (s *testCreateAccountSuite) TestCreateAccountInvalidRequestPayload() {
 	s.Equal(http.StatusBadRequest, s.recorder.Code)
 }
 
+// @Failed testcase -  statusCode (500)
 func (s *testCreateAccountSuite) TestCreateAccountInternalServerError() {
 	documentNumber := "12345678900"
 	s.dataRepo.Mock.On("CreateAccount", mock.Anything, repository.CreateAccountReqParams{

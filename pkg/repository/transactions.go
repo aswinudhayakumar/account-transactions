@@ -16,6 +16,7 @@ const (
 	`
 )
 
+// CreateTransaction creates a new transaction.
 func (dr *dataRepo) CreateTransaction(ctx context.Context, req CreateTransactionReqParams) error {
 	return dr.execTxn(ctx, func(tx *sqlx.Tx) error {
 		// Validate if both accountID and operationTypeID exists before creating a transaction

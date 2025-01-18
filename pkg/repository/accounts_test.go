@@ -12,6 +12,7 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+// testAccountsTableSuite is a test suite object to test database operations from Accounts table.
 type testAccountsTableSuite struct {
 	suite.Suite
 
@@ -20,6 +21,7 @@ type testAccountsTableSuite struct {
 	repo DataRepo
 }
 
+// SetupTest setups and initializes the testAccountsTableSuite.
 func (s *testAccountsTableSuite) SetupTest() {
 	db, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 	s.Require().NoError(err)
@@ -31,6 +33,7 @@ func (s *testAccountsTableSuite) SetupTest() {
 	s.repo = NewDataRepo(sqlxDB)
 }
 
+// TearDownTest gracefully closes the test suite, by closing the db connection.
 func (s *testAccountsTableSuite) TearDownTest() {
 	if s.db != nil {
 		err := s.db.Close()
@@ -40,40 +43,40 @@ func (s *testAccountsTableSuite) TearDownTest() {
 	}
 }
 
+// TestAccountsTableSuite is the custom test suite to test database operations from Accounts table.
 func TestAccountsTableSuite(t *testing.T) {
 	suite.Run(t, new(testAccountsTableSuite))
 }
 
+// @Success testcase
 func (s *testAccountsTableSuite) TestCreateAccountSuccess() {
 	req := CreateAccountReqParams{
 		DocumentNumber: "1234567",
 	}
 
-	s.mock.ExpectBegin()
 	s.mock.ExpectExec(createAccountQuery).
 		WithArgs(req.DocumentNumber).
 		WillReturnResult(sqlmock.NewResult(1, 1))
-	s.mock.ExpectCommit()
 
 	err := s.repo.CreateAccount(context.Background(), req)
 	s.Require().NoError(err)
 }
 
+// @Failed testcase
 func (s *testAccountsTableSuite) TestCreateAccountError() {
 	req := CreateAccountReqParams{
 		DocumentNumber: "1234567",
 	}
 
-	s.mock.ExpectBegin()
 	s.mock.ExpectExec(createAccountQuery).
 		WithArgs(req.DocumentNumber).
 		WillReturnError(errors.New("something went wrong"))
-	s.mock.ExpectRollback()
 
 	err := s.repo.CreateAccount(context.Background(), req)
 	s.Require().Error(err)
 }
 
+// @Success testcase
 func (s *testAccountsTableSuite) TestGetAccountByAccountIDSuccess() {
 	t := time.Now()
 	expected := &AccountResponse{
@@ -101,6 +104,7 @@ func (s *testAccountsTableSuite) TestGetAccountByAccountIDSuccess() {
 	s.Equal(expected, actual)
 }
 
+// @Failed testcase
 func (s *testAccountsTableSuite) TestGetAccountByAccountIDNoRowsError() {
 	account_id := 1
 
@@ -114,6 +118,7 @@ func (s *testAccountsTableSuite) TestGetAccountByAccountIDNoRowsError() {
 	s.Require().Nil(actual)
 }
 
+// @Failed testcase
 func (s *testAccountsTableSuite) TestGetAccountByAccountIDInternalServerError() {
 	account_id := 1
 

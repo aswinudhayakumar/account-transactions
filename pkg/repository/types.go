@@ -10,10 +10,12 @@ var (
 	ErrOperationTypeIDNotExists = errors.New("Operation Type ID not exists")
 )
 
+// CreateAccountReqParams is the request object for CreateAccount method.
 type CreateAccountReqParams struct {
 	DocumentNumber string `db:"document_number"`
 }
 
+// AccountResponse is the response object which holds Account data.
 type AccountResponse struct {
 	AccountID      int       `db:"account_id"`
 	DocumentNumber string    `db:"document_number"`
@@ -21,6 +23,7 @@ type AccountResponse struct {
 	UpdatedAt      time.Time `db:"updated_at"`
 }
 
+// CreateTransactionReqParams is the request object for CreateTransaction method.
 type CreateTransactionReqParams struct {
 	AccountID       int
 	OperationTypeID int

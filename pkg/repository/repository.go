@@ -8,22 +8,26 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+// DataRepo is an interface which provides methods for database related operations.
 type DataRepo interface {
 	CreateAccount(ctx context.Context, req CreateAccountReqParams) error
 	GetAccountByAccountID(ctx context.Context, accountID int) (*AccountResponse, error)
 	CreateTransaction(ctx context.Context, req CreateTransactionReqParams) error
 }
 
+// dataRepo object.
 type dataRepo struct {
 	db *sqlx.DB
 }
 
+// NewDataRepo initializes and returns a new DataRepo.
 func NewDataRepo(db *sqlx.DB) DataRepo {
 	return &dataRepo{
 		db: db,
 	}
 }
 
+// execTxn executes a database transaction for the provided function.
 func (dr *dataRepo) execTxn(ctx context.Context, fn func(*sqlx.Tx) error) error {
 	tx, err := dr.db.BeginTxx(ctx, nil)
 	if err != nil {

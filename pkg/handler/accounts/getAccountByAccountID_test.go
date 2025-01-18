@@ -22,6 +22,7 @@ const (
 	getAccountByAccountIDEndpoint = "/app/v1/accounts/%d"
 )
 
+// testGetAccountByAccountIDSuite is a test suite object to test GetAccountByAccountID API handler.
 type testGetAccountByAccountIDSuite struct {
 	suite.Suite
 
@@ -31,6 +32,7 @@ type testGetAccountByAccountIDSuite struct {
 	recorder        *httptest.ResponseRecorder
 }
 
+// // SetupTest setups and initializes the testGetAccountByAccountIDSuite.
 func (s *testGetAccountByAccountIDSuite) SetupTest() {
 	s.recorder = httptest.NewRecorder()
 	s.dataRepo = new(mocks.DataRepo)
@@ -46,10 +48,12 @@ func (s *testGetAccountByAccountIDSuite) SetupTest() {
 	defer logger.SyncLogger()
 }
 
+// TestGetAccountByAccountIDSuite is the custom test suite for GetAccountByAccountID API handler.
 func TestGetAccountByAccountIDSuite(t *testing.T) {
 	suite.Run(t, new(testGetAccountByAccountIDSuite))
 }
 
+// @Success testcase - statusCode (200)
 func (s *testGetAccountByAccountIDSuite) TestGetAccountByAccountIDSuccess() {
 	accountID := 1
 	t := time.Now()
@@ -70,6 +74,7 @@ func (s *testGetAccountByAccountIDSuite) TestGetAccountByAccountIDSuccess() {
 	s.Equal(http.StatusOK, s.recorder.Code)
 }
 
+// @Failed testcase - statusCode (400)
 func (s *testGetAccountByAccountIDSuite) TestGetAccountByAccountIDInvalidAccountID() {
 	req := httptest.NewRequest(http.MethodPost, "/app/v1/accounts/abc", nil)
 
@@ -77,6 +82,7 @@ func (s *testGetAccountByAccountIDSuite) TestGetAccountByAccountIDInvalidAccount
 	s.Equal(http.StatusBadRequest, s.recorder.Code)
 }
 
+// @Failed testcase - statusCode (404)
 func (s *testGetAccountByAccountIDSuite) TestGetAccountByAccountIDDataNotFound() {
 	accountID := 1
 
@@ -90,6 +96,7 @@ func (s *testGetAccountByAccountIDSuite) TestGetAccountByAccountIDDataNotFound()
 	s.Equal(http.StatusNotFound, s.recorder.Code)
 }
 
+// @Failed testcase - statusCode (500)
 func (s *testGetAccountByAccountIDSuite) TestGetAccountByAccountIDInternalServerError() {
 	accountID := 1
 

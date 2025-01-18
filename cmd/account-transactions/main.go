@@ -44,15 +44,15 @@ func main() {
 	// Initialise Database connection
 	db, err := NewDBConnection(ctx, conf)
 	failOnError(err, "🛑 failed to connect to database")
+	defer db.Close()
 
 	// Run Database migrations
 	err = migrator.RunMigrations(db.DB)
 	failOnError(err, "🛑 failed to apply db migrations")
 
 	// Initialise the HTTP web server
-	webServer := InitWebServer(
-		buildWebServerConfig(conf, db),
-	)
+	webServerConfig := buildWebServerConfig(conf, db)
+	webServer := webServerConfig.InitWebServer()
 
 	// Run the HTTP web server
 	go func() {
@@ -70,6 +70,7 @@ func main() {
 		if err := webServer.Shutdown(ctx); err != nil {
 			log.Printf("🛑 Failed to shut down HTTP server: %v", err)
 		}
+		db.Close()
 	})
 
 	<-ctx.Done()
