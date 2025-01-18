@@ -1,6 +1,6 @@
 # account-transactions
 
-This repository contains a project for managing account-related transaction endpoints. Built as part of an interview assignment for PISMO, the project focuses on handling transaction processing, querying, and management with clean architecture and well-structured code.
+A dockerized Go web service managing account-related transaction endpoints, created as an interview assignment for Pismo. Focuses on transaction processing, querying, and management, adhering to clean architecture principles and well-structured code.
 
 ## Table of contents
 
@@ -104,13 +104,13 @@ This image contains the fully packaged application, ready to be deployed and run
 
 The following environment variables are required for configuring the application:
 
-- **APP_PORT**- The port on which the application will run.
-- **DB_USER**- The username for connecting to the database.
-- **DB_PASSWORD**- The password for the database user.
-- **DB_NAME**- The name of the database to use.
-- **DB_HOST**- The hostname of the database server.
-- **DB_PORT**- The port on which the database is running.
-- **SSL_MODE**- SSL connection mode to the database. This can be set to disable, require, etc., depending on your database configuration.
+- `APP_PORT` - The port on which the application will run.
+- `DB_USER` - The username for connecting to the database.
+- `DB_PASSWORD` - The password for the database user.
+- `DB_NAME` - The name of the database to use.
+- `DB_HOST` - The hostname of the database server.
+- `DB_PORT` - The port on which the database is running.
+- `SSL_MODE` - SSL connection mode to the database. This can be set to disable, require, etc., depending on your database configuration.
 These environment variables must be set in a .env file or configured directly in your system to ensure proper connectivity and behavior of the application.
 
 ## 🔗 Links
