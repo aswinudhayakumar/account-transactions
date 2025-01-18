@@ -9,6 +9,19 @@ import (
 	"github.com/gofrs/uuid"
 )
 
+const (
+	// error codes
+	ErrCodeInvalidRequest  = "invalid_request"
+	ErrCodeUnexpectedError = "unexpected_error"
+	ErrCodeDataNotFound    = "data_not_found"
+
+	// error titles
+	ErrTitleInvalidRequestPayload = "Invalid Request Payload"
+	ErrTilteValidationFailed      = "Validation Failed"
+	ErrTitleUnexpectedError       = "Unexpected Error"
+	ErrTitleDataNotFound          = "Requested Data Not Found"
+)
+
 // Errors
 var (
 	ErrEmptyHTTPStatus   = errors.New("HTTP status must be set")

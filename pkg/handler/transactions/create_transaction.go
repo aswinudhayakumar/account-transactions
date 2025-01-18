@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/aswinudhayakumar/account-transactions/internal/logger"
-	writer "github.com/aswinudhayakumar/account-transactions/internal/writter"
+	"github.com/aswinudhayakumar/account-transactions/internal/writer"
 	"github.com/aswinudhayakumar/account-transactions/pkg/repository"
 	"go.uber.org/zap"
 )
@@ -21,8 +21,8 @@ func (h *transactionsHandler) CreateTransaction(w http.ResponseWriter, r *http.R
 			w,
 			http.StatusBadRequest,
 			writer.ErrorDescription{
-				Title:  "Invalid Request Payload",
-				Code:   "invalid_request",
+				Title:  writer.ErrTitleInvalidRequestPayload,
+				Code:   writer.ErrCodeInvalidRequest,
 				Detail: "The request payload is malformed or invalid.",
 			},
 		)
@@ -45,8 +45,8 @@ func (h *transactionsHandler) CreateTransaction(w http.ResponseWriter, r *http.R
 				w,
 				http.StatusBadRequest,
 				writer.ErrorDescription{
-					Title:  "Invalid Request Payload",
-					Code:   "invalid_request",
+					Title:  writer.ErrTitleInvalidRequestPayload,
+					Code:   writer.ErrCodeInvalidRequest,
 					Detail: err.Error(),
 				},
 			)
@@ -58,8 +58,8 @@ func (h *transactionsHandler) CreateTransaction(w http.ResponseWriter, r *http.R
 			w,
 			http.StatusInternalServerError,
 			writer.ErrorDescription{
-				Title:  "Unexpected Error",
-				Code:   "unexpected_error",
+				Title:  writer.ErrTitleUnexpectedError,
+				Code:   writer.ErrCodeUnexpectedError,
 				Detail: err.Error(),
 			},
 		)
@@ -76,8 +76,8 @@ func (h *transactionsHandler) CreateTransaction(w http.ResponseWriter, r *http.R
 			w,
 			http.StatusInternalServerError,
 			writer.ErrorDescription{
-				Title:  "Unexpected Error",
-				Code:   "unexpected_error",
+				Title:  writer.ErrTitleUnexpectedError,
+				Code:   writer.ErrCodeUnexpectedError,
 				Detail: err.Error(),
 			},
 		)

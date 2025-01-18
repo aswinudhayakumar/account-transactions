@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/aswinudhayakumar/account-transactions/internal/logger"
-	writer "github.com/aswinudhayakumar/account-transactions/internal/writter"
+	"github.com/aswinudhayakumar/account-transactions/internal/writer"
 	"go.uber.org/zap"
 )
 
@@ -29,7 +29,7 @@ func (h *accountsHandler) GetAccountByAccountID(w http.ResponseWriter, r *http.R
 			http.StatusBadRequest,
 			writer.ErrorDescription{
 				Title:  "Invalid Account ID",
-				Code:   "invalid_request",
+				Code:   writer.ErrCodeInvalidRequest,
 				Detail: err.Error(),
 			},
 		)
@@ -46,8 +46,8 @@ func (h *accountsHandler) GetAccountByAccountID(w http.ResponseWriter, r *http.R
 				w,
 				http.StatusNotFound,
 				writer.ErrorDescription{
-					Title:  "Requested Data Not Found",
-					Code:   "data_not_found",
+					Title:  writer.ErrTitleDataNotFound,
+					Code:   writer.ErrCodeDataNotFound,
 					Detail: err.Error(),
 				},
 			)
@@ -59,8 +59,8 @@ func (h *accountsHandler) GetAccountByAccountID(w http.ResponseWriter, r *http.R
 			w,
 			http.StatusInternalServerError,
 			writer.ErrorDescription{
-				Title:  "Unexpected Error",
-				Code:   "unexpected_error",
+				Title:  writer.ErrTitleUnexpectedError,
+				Code:   writer.ErrCodeUnexpectedError,
 				Detail: err.Error(),
 			},
 		)
@@ -80,8 +80,8 @@ func (h *accountsHandler) GetAccountByAccountID(w http.ResponseWriter, r *http.R
 			w,
 			http.StatusInternalServerError,
 			writer.ErrorDescription{
-				Title:  "Unexpected Error",
-				Code:   "unexpected_error",
+				Title:  writer.ErrTitleUnexpectedError,
+				Code:   writer.ErrCodeUnexpectedError,
 				Detail: err.Error(),
 			},
 		)
