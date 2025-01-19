@@ -120,6 +120,7 @@ The following environment variables are required for configuring the application
 These environment variables must be set in a .env file or configured directly in your system to ensure proper connectivity and behavior of the application.
 
 ## 🔗 Links
+[![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)](https://www.postman.com/aswinudhayakumar/aswin-general/collection/lc45chu/account-transactions)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/aswin-udhayakumar/)
 
 
