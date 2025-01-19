@@ -12,7 +12,33 @@ A dockerized Go web service managing account-related transaction endpoints, crea
 6. [Links](#-links)
 
 ## 🏛️ Architecture
-The **account-transactions** project follows a clean architecture approach, promoting modularity, maintainability, and separation of concerns. The architecture is designed with flexibility and scalability in mind. Key aspects include:
+- **Golang with Chi Router** - The application is built using Go (Golang) for its high performance and simplicity. The Chi router is used to handle HTTP routing, providing a lightweight and flexible way to define routes and middleware for the application.
+
+- **Modular Architecture** - The application follows a modular architecture, where components such as handlers, repositories, and middleware are decoupled and interact through well-defined interfaces. This structure ensures flexibility and easy maintenance.
+
+- **Dockerized Application** - The application is containerized using Docker, ensuring portability, ease of deployment, and isolation of dependencies. This allows the application to run consistently across different environments.
+
+## 🗼 Repository structure
+```
+account-transactions
+├───cmd
+│   └───account-transactions
+├───internal
+│   ├───logger
+│   ├───middleware
+│   ├───migrator
+│   ├───mocks
+│   ├───signal
+│   ├───validator
+│   └───writer
+├───pkg
+│   ├───handler
+│   │   ├───accounts
+│   │   └───transactions
+│   └───repository
+├───schema
+│   └───migrations
+```
 
 - **cmd** - Contains the entry point for the application, where the application is initialized and started, setting up routing and server configurations.
 
@@ -27,30 +53,6 @@ The **account-transactions** project follows a clean architecture approach, prom
     - **repository** - Manages database interactions through repository patterns, isolating database logic from the rest of the application. The use of interfaces in the repository layer ensures flexibility, allowing for different database implementations without changing the business logic.
 
 - **schema** - Contains the database schema and migration files for managing the database structure.
-
-This architecture provides flexibility, making it easy to scale and extend the project while maintaining a clean separation of concerns across the various layers.
-
-## 🗼 Repository structure
-```
-account-transactions
-├───cmd
-│   └───account-transactions
-├───internal
-│   ├───logger
-│   ├───middleware
-│   ├───migrator
-│   ├───mocks
-│   ├───signal
-│   ├───validator
-│   └───writter
-├───pkg
-│   ├───handler
-│   │   ├───accounts
-│   │   └───transactions
-│   └───repository
-├───schema
-│   └───migrations
-```
 
 ## 🚀 Api-spec
 
@@ -73,7 +75,9 @@ API-spec will be added.
 2. **Start the service**
 
    ```
-   # this builds the docker image and runs the application along with db
+   # This builds the docker image and runs the application along with the db. 
+   # By default, application will run at the port 8080.
+
    make run
    ```
 
