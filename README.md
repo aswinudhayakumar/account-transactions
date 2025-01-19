@@ -120,6 +120,9 @@ The following environment variables are required for configuring the application
 These environment variables must be set in a .env file or configured directly in your system to ensure proper connectivity and behavior of the application.
 
 ## 🔗 Links
+[![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)](https://aswinudhayakumar.github.io/account-transactions-swagger/)
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/repository/docker/aswin8799/account-transactions)
+[![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)](https://www.postman.com/aswinudhayakumar/aswin-general/collection/lc45chu/account-transactions)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/aswin-udhayakumar/)
 
 

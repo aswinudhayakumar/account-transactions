@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/aswinudhayakumar/account-transactions/internal/middleware"
-	"github.com/aswinudhayakumar/account-transactions/internal/writer"
 	accHandler "github.com/aswinudhayakumar/account-transactions/pkg/handler/accounts"
 	trxHandler "github.com/aswinudhayakumar/account-transactions/pkg/handler/transactions"
 	"github.com/aswinudhayakumar/account-transactions/pkg/repository"
@@ -37,11 +36,6 @@ func (ws *WebServerConfig) InitWebServer() *http.Server {
 	r.Use(middleware.RecoverInterceptor)
 
 	r.Route("/app/v1", func(r chi.Router) {
-		// test API
-		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-			writer.WriteJSON(w, http.StatusOK, map[string]string{"msg": "helloworld!"})
-		})
-
 		// accounts API handlers
 		r.Route("/accounts", func(r chi.Router) {
 			r.Post("/", ws.accountsHandler.CreateAccount)
