@@ -68,7 +68,7 @@ func (h *transactionsHandler) CreateTransaction(w http.ResponseWriter, r *http.R
 
 	// Send success response
 	resp := CreateTrxResponse{
-		Status: true,
+		Status: StatusSuccess,
 	}
 	if err := writer.WriteJSON(w, http.StatusCreated, resp); err != nil {
 		logger.Log.Error("Error writting success response for CreateTransaction request", zap.Error(err))

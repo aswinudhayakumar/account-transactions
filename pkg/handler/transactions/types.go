@@ -1,5 +1,7 @@
 package handler
 
+const StatusSuccess = "success"
+
 // CreateTrxReqParams is the request object for CreateTransaction API.
 type CreateTrxReqParams struct {
 	AccountID       int     `json:"account_id"`
@@ -9,5 +11,5 @@ type CreateTrxReqParams struct {
 
 // CreateTrxResponse is the response object for CreateTransaction API.
 type CreateTrxResponse struct {
-	Status bool `json:"status"`
+	Status string `json:"status"`
 }

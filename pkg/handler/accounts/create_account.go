@@ -67,7 +67,7 @@ func (h *accountsHandler) CreateAccount(w http.ResponseWriter, r *http.Request) 
 
 	// Send success response
 	resp := CreateAccountResponse{
-		Status: true,
+		Status: StatusSuccess,
 	}
 	if err := writer.WriteJSON(w, http.StatusCreated, resp); err != nil {
 		logger.Log.Error("Error writting success response for CreateAccount request", zap.Error(err))

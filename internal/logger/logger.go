@@ -9,7 +9,11 @@ var Log *zap.Logger
 // InitLogger initialises the global logger
 func InitLogger() error {
 	var err error
-	Log, err = zap.NewProduction()
+	cfg := zap.NewProductionConfig()
+
+	cfg.DisableStacktrace = true
+
+	Log, err = cfg.Build()
 	if err != nil {
 		return err
 	}
