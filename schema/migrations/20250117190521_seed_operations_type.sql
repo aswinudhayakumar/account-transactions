@@ -9,7 +9,7 @@ INSERT INTO operations_types (description) VALUES
 -- +goose StatementEnd
 
 -- +goose Down
+-- +goose StatementBegin
 DELETE FROM operations_types WHERE description IN 
     ('Normal Purchase', 'Purchase With Installments', 'Withdrawal', 'Credit Voucher');
--- +goose StatementBegin
 -- +goose StatementEnd

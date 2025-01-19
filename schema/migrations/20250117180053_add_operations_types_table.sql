@@ -9,6 +9,6 @@ CREATE TABLE operations_types (
 -- +goose StatementEnd
 
 -- +goose Down
-DROP TABLE IF EXISTS operations_types;
 -- +goose StatementBegin
+DROP TABLE IF EXISTS operations_types;
 -- +goose StatementEnd

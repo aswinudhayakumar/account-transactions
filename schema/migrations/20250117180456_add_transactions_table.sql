@@ -16,6 +16,6 @@ CREATE TABLE transactions (
 -- +goose StatementEnd
 
 -- +goose Down
-DROP TABLE IF EXISTS transactions;
 -- +goose StatementBegin
+DROP TABLE IF EXISTS transactions;
 -- +goose StatementEnd

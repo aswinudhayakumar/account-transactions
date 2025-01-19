@@ -9,6 +9,6 @@ CREATE TABLE accounts (
 -- +goose StatementEnd
 
 -- +goose Down
-DROP TABLE IF EXISTS accounts;
 -- +goose StatementBegin
+DROP TABLE IF EXISTS accounts;
 -- +goose StatementEnd
