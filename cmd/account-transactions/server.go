@@ -45,11 +45,11 @@ func (ws *WebServerConfig) InitWebServer() *http.Server {
 		// accounts API handlers
 		r.Route("/accounts", func(r chi.Router) {
 			r.Post("/", ws.accountsHandler.CreateAccount)
-			r.Get("/", ws.accountsHandler.GetAccountByAccountID)
+			r.Get("/{id}", ws.accountsHandler.GetAccountByAccountID)
 		})
 
 		// transactions API handlers
-		r.Post("/", ws.trxHandler.CreateTransaction)
+		r.Post("/transactions", ws.trxHandler.CreateTransaction)
 
 	})
 
