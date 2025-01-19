@@ -56,7 +56,9 @@ account-transactions
 
 ## 🚀 Api-spec
 
-API-spec will be added.
+This documentation includes everything you need to get started with the API, including detailed endpoint descriptions, parameter definitions, response examples, and error handling information.
+
+You can view the full API specification [here](https://aswinudhayakumar.github.io/account-transactions-swagger/).
 
 ## 🏃‍♂️‍➡️ Getting started
 ### Prerequisites
