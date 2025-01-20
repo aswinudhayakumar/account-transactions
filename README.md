@@ -117,6 +117,8 @@ The following environment variables are required for configuring the application
 - `DB_HOST` - The hostname of the database server.
 - `DB_PORT` - The port on which the database is running.
 - `SSL_MODE` - SSL connection mode to the database. This can be set to disable, require, etc., depending on your database configuration.
+- `SHUTDOWN_TIMEOUT` (Optional): Specifies the duration (in seconds) the application waits before forcefully terminating processes during shutdown. Default is 5 seconds.
+
 These environment variables must be set in a .env file or configured directly in your system to ensure proper connectivity and behavior of the application.
 
 ## 🔗 Links
