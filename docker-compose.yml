@@ -4,7 +4,7 @@ services:
   account-transactions:
     image: account-transactions:local
     env_file:
-      - .env.local
+      - .env.testing
     depends_on:
       transactions-db:
         condition: service_healthy
