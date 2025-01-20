@@ -13,7 +13,6 @@ A dockerized Go web service managing account-related transaction endpoints, crea
 2. [Repository Structure](#-repository-structure)
 3. [Api-spec](#-api-spec)
 4. [Getting Started](#%EF%B8%8F%EF%B8%8F-getting-started)
-5. [Docker Image](#-docker-image)
 
 ## 🏛️ Architecture
 - Built with Go (Golang) for high performance and simplicity, using the Chi router for lightweight, flexible HTTP routing and middleware handling.
@@ -80,7 +79,7 @@ You can view the full API specification [here](https://aswinudhayakumar.github.i
    make down
    ```
 
-## ⚓ Docker Image
+### Another method by pulling the docker image
 
 You can pull the Docker image for this application from Docker Hub. Simply use the following command:
 
