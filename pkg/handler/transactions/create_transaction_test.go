@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"database/sql"
 	"errors"
 	"fmt"
 	"log"
@@ -56,13 +57,35 @@ func TestCreateTransactionSuite(t *testing.T) {
 func (s *testCreateTransactionSuite) TestCreateTransactionSuccess() {
 	accountID := 1
 	operationTypeID := 1
-	amount := 100.50
+	amount := 200.00
+
+	s.dataRepo.Mock.On("GetOperationType", mock.Anything, mock.Anything).Return(
+		"credit", nil,
+	)
 
 	s.dataRepo.Mock.On("CreateTransaction", mock.Anything, repository.CreateTransactionReqParams{
 		AccountID:       accountID,
 		OperationTypeID: operationTypeID,
 		Amount:          amount,
 	}).Return(nil)
+	s.dataRepo.Mock.On("GetNegativeTransactions", mock.Anything, mock.Anything).Return(
+		[]repository.GetNegativeTransactionsResp{
+			{
+				TransactionID: 1,
+				Balance: sql.NullFloat64{
+					Valid:   true,
+					Float64: -100,
+				},
+			},
+			{
+				TransactionID: 2,
+				Balance: sql.NullFloat64{
+					Valid:   true,
+					Float64: -50,
+				},
+			},
+		}, nil,
+	)
 
 	reqBody := fmt.Sprintf(`{
 		"account_id": %d,

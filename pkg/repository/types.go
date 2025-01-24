@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"database/sql"
 	"errors"
 	"time"
 )
@@ -28,9 +29,24 @@ type CreateTransactionReqParams struct {
 	AccountID       int
 	OperationTypeID int
 	Amount          float64
+	Balance         float64
 }
 
 type validateCreateTrx struct {
 	IsAccountExists         bool `db:"is_account_exists"`
 	IsOperationTypeIDExists bool `db:"is_operation_type_id_exists"`
+}
+
+type getOperationTypeResp struct {
+	Transaction_type string `db:"transaction_type"`
+}
+
+type GetNegativeTransactionsResp struct {
+	TransactionID int             `db:"transaction_id"`
+	Balance       sql.NullFloat64 `db:"balance"`
+}
+
+type UpdateTransactionBalances struct {
+	TransactionID int     `db:"transaction_id"`
+	Balance       float64 `db:"balance"`
 }

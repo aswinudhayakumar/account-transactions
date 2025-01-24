@@ -13,6 +13,8 @@ type DataRepo interface {
 	CreateAccount(ctx context.Context, req CreateAccountReqParams) error
 	GetAccountByAccountID(ctx context.Context, accountID int) (*AccountResponse, error)
 	CreateTransaction(ctx context.Context, req CreateTransactionReqParams) error
+	GetOperationType(ctx context.Context, operation_type_id int) (string, error)
+	GetNegativeTransactions(ctx context.Context, accountID int) ([]GetNegativeTransactionsResp, error)
 }
 
 // dataRepo object.

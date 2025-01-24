@@ -7,13 +7,19 @@ import (
 )
 
 const (
-	createTransactionQuery = `INSERT INTO transactions (account_id, operation_type_id, amount) VALUES ($1, $2, $3);`
+	createTransactionQuery = `INSERT INTO transactions (account_id, operation_type_id, amount, balance) VALUES ($1, $2, $3, $4);`
 
 	validateCreateTrxQuery = `
 	SELECT 
 		EXISTS (SELECT 1 FROM accounts WHERE account_id=$1) AS is_account_exists,
 		EXISTS (SELECT 1 FROM operations_types WHERE operation_type_id=$2) AS is_operation_type_id_exists;
 	`
+
+	getOperationTypeQuery = `SELECT transaction_type from operations_types where operation_type_id=$1;`
+
+	getNegativeTransactionsQuery = `select transaction_id, balance from transactions where balance < 0 and account_id=$1;`
+
+	updateTransaction = ``
 )
 
 // CreateTransaction creates a new transaction.
@@ -49,6 +55,7 @@ func (dr *dataRepo) CreateTransaction(ctx context.Context, req CreateTransaction
 			req.AccountID,
 			req.OperationTypeID,
 			req.Amount,
+			req.Balance,
 		)
 		if err != nil {
 			return err
@@ -56,4 +63,51 @@ func (dr *dataRepo) CreateTransaction(ctx context.Context, req CreateTransaction
 
 		return nil
 	})
+}
+
+func (dr *dataRepo) GetOperationType(ctx context.Context, operation_type_id int) (string, error) {
+	var res getOperationTypeResp
+	err := dr.db.GetContext(
+		ctx,
+		&res,
+		getOperationTypeQuery,
+		operation_type_id,
+	)
+	if err != nil {
+		return "", err
+	}
+
+	return res.Transaction_type, nil
+}
+
+func (dr *dataRepo) GetNegativeTransactions(ctx context.Context, accountID int) ([]GetNegativeTransactionsResp, error) {
+	var resp []GetNegativeTransactionsResp
+	err := dr.db.SelectContext(
+		ctx,
+		&resp,
+		getNegativeTransactionsQuery,
+		accountID,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (dr *dataRepo) UpdateOldTransactionBalance(ctx context.Context, req UpdateTransactionBalances) error {
+	return dr.execTxn(
+		ctx, func(tx *sqlx.Tx) error {
+			_, err := dr.db.ExecContext(
+				ctx,
+				updateTransaction,
+				req.TransactionID,
+				req.Balance,
+			)
+			if err != nil {
+				return err
+			}
+			return nil
+		},
+	)
 }
