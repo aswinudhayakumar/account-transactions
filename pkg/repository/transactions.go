@@ -19,7 +19,7 @@ const (
 
 	getNegativeTransactionsQuery = `select transaction_id, balance from transactions where balance < 0 and account_id=$1;`
 
-	updateTransaction = ``
+	updateTransaction = `update transactions set balance=$1 where transaction_id=$2;`
 )
 
 // CreateTransaction creates a new transaction.
@@ -101,8 +101,8 @@ func (dr *dataRepo) UpdateOldTransactionBalance(ctx context.Context, req UpdateT
 			_, err := dr.db.ExecContext(
 				ctx,
 				updateTransaction,
-				req.TransactionID,
 				req.Balance,
+				req.TransactionID,
 			)
 			if err != nil {
 				return err

@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/aswinudhayakumar/account-transactions/internal/logger"
@@ -58,8 +57,17 @@ func (h *transactionsHandler) CreateTransaction(w http.ResponseWriter, r *http.R
 		return
 	}
 
+	amount := req.Amount
+	transactionData := repository.CreateTransactionReqParams{
+		AccountID:       req.AccountID,
+		OperationTypeID: req.OperationTypeID,
+		Amount:          req.Amount,
+		Balance:         req.Amount,
+	}
+
 	if trxType == "debit" {
-		req.Amount = -req.Amount
+		transactionData.Amount = -req.Amount
+		transactionData.Balance = -req.Amount
 	} else {
 		transactions, err := h.DataRepo.GetNegativeTransactions(r.Context(), req.AccountID)
 		if err != nil {
@@ -75,10 +83,6 @@ func (h *transactionsHandler) CreateTransaction(w http.ResponseWriter, r *http.R
 			return
 		}
 
-		logger.Log.Info("before --> ", zap.Any("transactions", transactions))
-
-		amount := req.Amount
-
 		var balance float64
 		var processed []repository.UpdateTransactionBalances
 
@@ -87,13 +91,23 @@ func (h *transactionsHandler) CreateTransaction(w http.ResponseWriter, r *http.R
 				if trx.Balance.Valid {
 					balance = -trx.Balance.Float64
 				}
-				updatedAmount := amount - balance
+				var updatedAmount float64
+				if amount > balance {
+					updatedAmount = amount - balance
+				} else {
+					updatedAmount = balance - amount
+				}
 				if updatedAmount > 0 {
 					processed = append(processed, repository.UpdateTransactionBalances{
 						TransactionID: trx.TransactionID,
 						Balance:       0,
 					})
 				} else {
+					b := balance - updatedAmount
+					processed = append(processed, repository.UpdateTransactionBalances{
+						TransactionID: trx.TransactionID,
+						Balance:       b,
+					})
 					updatedAmount = 0
 				}
 
@@ -101,20 +115,29 @@ func (h *transactionsHandler) CreateTransaction(w http.ResponseWriter, r *http.R
 			}
 		}
 
-		logger.Log.Info("after --> ", zap.Any("processed", processed))
-		fmt.Println("final Amoutn -> ", req.Amount, amount)
+		for _, trx := range processed {
+			err := h.DataRepo.UpdateOldTransactionBalance(r.Context(), trx)
+			if err != nil {
+				writer.WriteJSONError(
+					w,
+					http.StatusBadRequest,
+					writer.ErrorDescription{
+						Title:  writer.ErrTitleInvalidRequestPayload,
+						Code:   writer.ErrCodeInvalidRequest,
+						Detail: err.Error(),
+					},
+				)
+				return
+			}
+		}
 
+		transactionData.Balance = amount
 	}
 
 	// Create a transaction
 	err = h.DataRepo.CreateTransaction(
 		r.Context(),
-		repository.CreateTransactionReqParams{
-			AccountID:       req.AccountID,
-			OperationTypeID: req.OperationTypeID,
-			Amount:          req.Amount,
-			Balance:         req.Amount,
-		})
+		transactionData)
 	if err != nil {
 		// Handle errors
 		if errors.Is(err, repository.ErrAccountIDNotExists) || errors.Is(err, repository.ErrOperationTypeIDNotExists) {
