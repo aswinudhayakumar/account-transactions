@@ -5,6 +5,11 @@ create type transaction_type as enum ('credit', 'debit');
 alter table operations_types
 	add column transaction_type transaction_type;
 
+update operations_types set transaction_type='debit' where operation_type_id=1;
+update operations_types set transaction_type='debit' where operation_type_id=2;
+update operations_types set transaction_type='debit' where operation_type_id=3;
+update operations_types set transaction_type='credit' where operation_type_id=4;
+
 alter table transactions
     add column balance DECIMAL(15,2);
 
